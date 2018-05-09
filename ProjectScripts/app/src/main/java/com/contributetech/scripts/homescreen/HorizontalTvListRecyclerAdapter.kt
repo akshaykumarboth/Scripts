@@ -8,37 +8,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.contributetech.scripts.R
-import com.contributetech.scripts.commonListeners.IMovieClick
-import com.contributetech.scripts.database.moviesListItemDetail.MovieListItem
+import com.contributetech.scripts.database.tvListItemDetail.TvShowListItem
 import com.contributetech.scripts.network.NetworkImageUtil
 import com.contributetech.scripts.util.ImageUtil
 import com.facebook.drawee.view.SimpleDraweeView
 
-class HorizontalMovieListRecyclerAdapter(var mContext:Context):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var mMovieList:ArrayList<MovieListItem> = ArrayList()
-    var onClickListener: IMovieClick? = null
+class HorizontalTvListRecyclerAdapter(var mContext:Context):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var mTvShowList:ArrayList<TvShowListItem> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return MoviesViewHolder(inflater.inflate(R.layout.horizontal_movie_list_item_view, parent, false))
+        return TvViewHolder(inflater.inflate(R.layout.horizontal_movie_list_item_view, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return mMovieList.size
+        return mTvShowList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val movie: MovieListItem = mMovieList.get(position)
-        (holder as MoviesViewHolder).onBindView(movie, onClickListener)
+        val tvShow: TvShowListItem = mTvShowList.get(position)
+        (holder as TvViewHolder).onBindView(tvShow)
     }
 
-    fun setData(newList:ArrayList<MovieListItem>) {
-        mMovieList = newList
+    fun setData(newList:ArrayList<TvShowListItem>) {
+        mTvShowList = newList
         notifyDataSetChanged()
     }
 }
 
-class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class TvViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var fivMovieImage: SimpleDraweeView
     var tvMovieTitle:TextView
 
@@ -47,17 +45,12 @@ class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         tvMovieTitle = view.findViewById(R.id.tv_movie_title)
     }
 
-    fun onBindView(movie: MovieListItem, listener:IMovieClick?) {
+    fun onBindView(movie: TvShowListItem) {
         tvMovieTitle.setText(movie.originalTitle)
         if(movie.backdropPath != null) {
             val path: String = NetworkImageUtil.getImagePath(movie.posterPath, ImageUtil.LandscapeSizes.mid_size)
             val uri = Uri.parse(path)
             fivMovieImage.setImageURI(uri)
-        }
-        fivMovieImage.setOnClickListener {
-            if(listener != null){
-                listener.onMovieClick(movie.id)
-            }
         }
     }
 

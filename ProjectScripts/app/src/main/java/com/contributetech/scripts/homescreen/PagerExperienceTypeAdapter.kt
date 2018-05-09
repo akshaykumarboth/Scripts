@@ -6,40 +6,39 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.util.Log
 import android.view.ViewGroup
 
-class PagerExperienceTypeAdapter(fragmentManager: FragmentManager, var mActivityContract: MoviesFragmentContract.ActivityContract):FragmentStatePagerAdapter(fragmentManager) {
+class PagerExperienceTypeAdapter(fragmentManager: FragmentManager, var mActivityMoviesContract: Contract.Movies.ActivityContract, var mActivityTvContract: Contract.TvShows.ActivityContract):FragmentStatePagerAdapter(fragmentManager) {
 
     val SIZE:Int = 2
-    var firstFrag:HomeScreenFragment? = null
-    var secondFrag:HomeScreenFragment? = null
+    var firstFrag:HomeMoviesFragment? = null
+    var secondFrag:HomeTvShowFragment? = null
 
     override fun getItem(position: Int): Fragment {
         when (position ) {
             0 -> {
-                firstFrag = HomeScreenFragment.newInstance()
-                firstFrag?.mActivityContract = mActivityContract
-
+                firstFrag = HomeMoviesFragment.newInstance()
+                firstFrag?.mActivityContract = mActivityMoviesContract
+                return firstFrag as HomeMoviesFragment
             }
-            1 -> {
-                secondFrag = HomeScreenFragment.newInstance()
-                secondFrag?.mActivityContract = mActivityContract
+            else -> {
+                secondFrag = HomeTvShowFragment.newInstance()
+                secondFrag?.mActivityContract = mActivityTvContract
+                return secondFrag as HomeTvShowFragment
             }
         }
-        Log.d("check123", "NeitherCase")
-        return HomeScreenFragment()
     }
 
     override fun getCount(): Int {
         return SIZE
     }
 
-    fun getFragment(position:Int) : HomeScreenFragment? {
+    fun getFragment(position:Int) : Fragment? {
         if (position == 0) {
             if (firstFrag != null) {
-                return firstFrag as HomeScreenFragment
+                return firstFrag as HomeMoviesFragment
             }
         }else {
             if (secondFrag != null) {
-                return secondFrag as HomeScreenFragment
+                return secondFrag as HomeTvShowFragment
             }
         }
        return null
@@ -48,17 +47,17 @@ class PagerExperienceTypeAdapter(fragmentManager: FragmentManager, var mActivity
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         if(position == 0) {
             if(firstFrag == null){
-                firstFrag = super.instantiateItem(container, position) as HomeScreenFragment
+                firstFrag = super.instantiateItem(container, position) as HomeMoviesFragment
             }
-            firstFrag?.mActivityContract = mActivityContract
-            return firstFrag as HomeScreenFragment
+            firstFrag?.mActivityContract = mActivityMoviesContract
+            return firstFrag as HomeMoviesFragment
         }
         else {
             if(secondFrag == null){
-                secondFrag = super.instantiateItem(container, position) as HomeScreenFragment
+                secondFrag = super.instantiateItem(container, position) as HomeTvShowFragment
             }
-            secondFrag?.mActivityContract = mActivityContract
-            return secondFrag as HomeScreenFragment
+            secondFrag?.mActivityContract = mActivityTvContract
+            return secondFrag as HomeTvShowFragment
         }
     }
 }

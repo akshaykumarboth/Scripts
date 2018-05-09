@@ -21,10 +21,19 @@
                 android:text="Popular Movies"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
+                android:alpha="0.8"
                 android:textAllCaps="true"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:id="@+id/tv_string_pop_movies"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/white"
+                android:layout_alignBottom="@+id/tv_string_pop_movies"
+                android:alpha="0.6"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"/>
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,11 +52,20 @@
                 android:gravity="left"
                 android:text="Upcoming Movies"
                 android:layout_marginTop="10dp"
+                android:alpha="0.4"
                 android:padding="10dp"
                 android:textAllCaps="true"
                 android:id="@+id/tv_string_upcoiming_movies"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/white"
+                android:alpha="0.6"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:layout_alignBottom="@+id/tv_string_upcoiming_movies"/>
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,6 +85,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Top Rated Movies"
                 android:id="@+id/tv_string_top_rated_movies"
+                android:alpha="0.6"
                 android:textAllCaps="true"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
